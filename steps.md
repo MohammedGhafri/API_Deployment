@@ -12,7 +12,7 @@
 
 2. project folder (Not root):
 
-    - create sample.env
+    - create sample.env (This step is optional, for educational purposes)
 
         - ```DEBUG=on
             SECRET_KEY=put-real-secret-key-here
@@ -35,6 +35,7 @@
             DATABASE_PORT=5432
             ALLOWED_HOSTS=localhost,127.0.0.1,172.16.0.163
             ```
+        - Modify the some fields such as DEBUG = off, database password,secretkey ..
 
 3. In project.settings : 
     - import
@@ -112,6 +113,8 @@
                 ]
 
                 ```
+9. Don't forget to add .gittgnore as I did
+
 # Comming soon
 
 ## Deploy on heroku 
@@ -139,3 +142,11 @@
             web: gunicorn drf_auth.wsgi
         
         ```
+
+4. In terminal, Make sure you are project is connected to githup :
+    - `heroku git:remote -a <name of app from step 2>
+    - `git remote -v` You must see heroku directory
+    - add
+    - commit
+    - `heroku stack:set container`
+    - git push heroku <branch>
