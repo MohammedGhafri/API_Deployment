@@ -9,7 +9,7 @@ build:
     command:
       - mkdir -p static
       - python manage.py collectstatic --noiput
-      - ./deployment-tasks.sh
+    #   - ./deployment-tasks.sh
     image: web
   run:
     web: gunicorn drf_auth.wsgi
