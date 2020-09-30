@@ -115,3 +115,27 @@
 # Comming soon
 
 ## Deploy on heroku 
+
+1. Make sure you have heroku in your machine, if Not use this code `curl https://cli-assets.heroku.com/install.sh | sh` in your Terminal.
+2. In Terminal :
+    - `heroku create <name  your app >` make sure you didn't exceeded the allowed free apps, which is just 5
+    - ِA link will show up, This is your domain
+3. In root : 
+    - create file "heroku.yml"
+    - inside this file :
+
+        ```
+        build:
+            docker:
+            web: Dockerfile
+            
+        release:
+            command:
+            - mkdir -p static
+            - python manage.py collectstatic --noiput
+            - ./deployment-tasks.sh
+            image: web
+        run:
+            web: gunicorn drf_auth.wsgi
+        
+        ```
