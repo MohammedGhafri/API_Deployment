@@ -1,0 +1,20 @@
+build:
+    docker:
+      web: Dockerfile
+    #   worker: worker/Dockerfile
+    # config:
+    #   RAILS_ENV: development
+    #   FOO: bar
+release:
+command:
+    - mkdir -p static
+    - python manage.py collectstatic --noinput
+    #   - ./deployment-tasks.sh
+image: web
+run:
+    web: gunicorn drf_auth.wsgi
+    # worker: python myworker.py
+
+
+
+

@@ -12,7 +12,7 @@
 
 2. project folder (Not root):
 
-    - create sample.env
+    - create sample.env (This step is optional, for educational purposes)
 
         - ```DEBUG=on
             SECRET_KEY=put-real-secret-key-here
@@ -35,6 +35,7 @@
             DATABASE_PORT=5432
             ALLOWED_HOSTS=localhost,127.0.0.1,172.16.0.163
             ```
+        - Modify the some fields such as DEBUG = off, database password,secretkey ..
 
 3. In project.settings : 
     - import
@@ -112,6 +113,40 @@
                 ]
 
                 ```
+9. Don't forget to add .gittgnore as I did
+
 # Comming soon
 
 ## Deploy on heroku 
+
+1. Make sure you have heroku in your machine, if Not use this code `curl https://cli-assets.heroku.com/install.sh | sh` in your Terminal.
+2. In Terminal :
+    - `heroku create <name  your app >` make sure you didn't exceeded the allowed free apps, which is just 5
+    - ِA link will show up, This is your domain
+3. In root : 
+    - create file "heroku.yml"
+    - inside this file :
+
+        ```
+        build:
+            docker:
+            web: Dockerfile
+            
+        release:
+            command:
+            - mkdir -p static
+            - python manage.py collectstatic --noiput
+            - ./deployment-tasks.sh
+            image: web
+        run:
+            web: gunicorn drf_auth.wsgi
+        
+        ```
+
+4. In terminal, Make sure you are project is connected to githup :
+    - `heroku git:remote -a <name of app from step 2>
+    - `git remote -v` You must see heroku directory
+    - add
+    - commit
+    - `heroku stack:set container`
+    - git push heroku <branch>
